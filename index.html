@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+
+
+    <title>API</title>
+</head>
+<body>
+
+  <header>
+    <h1>آب‌وهوای شهرها</h1>
+  </header>
+
+    <main>
+        <h2>اب و هوای شهر ها </h2>
+        <input type="text" id="cityInput" placeholder="اسم شهر را وارد کنید" >
+        <button id="searchBtn">جستجو</button>
+        <section class="loading error empty " id="statusMessage"></section>
+
+        <section id="weatherResult"></section>
+    </main>
+    
+
+    <script src="js/index.js"></script>
+</body>
+</html>

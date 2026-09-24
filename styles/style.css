@@ -1,0 +1,121 @@
+:root {
+  --font-main: 'Vazirmatn', sans-serif;
+
+  --bg: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 60%, #c7d2fe 100%);
+  --surface: rgba(255, 255, 255, 0.7);
+  --primary: #7c3aed;
+  --primary-hover: #6d28d9;
+  --text: #1e293b;
+  --text-light: #64748b;
+
+  --loading: #f59e0b;
+  --empty: #94a3b8;
+  --error: #dc2626;
+  --success: #16a34a;
+
+  --header-bg: rgba(255, 255, 255, 0.6);
+
+  --radius: 5px;
+  --shadow: 0 4px 20px rgba(124, 58, 237, 0.15);
+  --spacing: 1rem;
+  --header-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --header-padding: 1.25rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  font-family: var(--font-main);
+  color: var(--text);
+  overflow-x: hidden;
+
+  width: 100%;
+}
+
+header {
+  background-color: var(--header-bg);
+  box-shadow: var(--header-shadow);
+  padding: var(--header-padding);
+  text-align: center;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+main {
+    max-width: 100%;
+    padding: var(--spacing);
+}
+
+header h1 {
+  color: var(--primary);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+button {
+  background-color: var(--primary);
+  border-radius: var(--radius);
+  color: #fff;
+  padding: 1px 0;
+  width: 70px;
+  border: none;
+  font-family: var(--font-main);
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+}
+
+input {
+     border-radius: var(--radius);
+     border: none;
+     padding: 4px;
+     margin-right: 20px;
+     background-color: var(--surface);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+.loading {
+  background-color: var(--loading);
+  color: #fff;
+}
+
+.error {
+  background-color: var(--error);
+  color: #fff;
+}
+
+.empty {
+  background-color: var(--empty);
+  color: #fff;
+}
+
+#statusMessage {
+  padding: var(--spacing);
+  border-radius: var(--radius);
+  margin-top: var(--spacing);
+  text-align: center;
+  display: none;
+}
+
+#weatherResult {
+    backdrop-filter: blur(10px);
+   -webkit-backdrop-filter: blur(10px);
+    background-color: var(--surface);
+    border-radius: var(--radius);
+    padding: var(--spacing);
+    box-shadow: var(--shadow);
+    margin-top: var(--spacing);
+}
+
