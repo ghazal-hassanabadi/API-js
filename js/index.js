@@ -1,5 +1,6 @@
 const API_KEY = "899b432e";
 const BASE_URL = "https://www.omdbapi.com/";
+
 const searchInput = document.querySelector("#search-input");
 const searchBtn = document.querySelector("#search-btn");
 const loadingState = document.querySelector("#loading-state");
@@ -8,7 +9,7 @@ const errorState = document.querySelector("#error-state");
 const resultsGrid = document.querySelector("#results");
 
 
-/*--------------------------------------------------------------*/ 
+/*--------------------------------------------------------------*/
 
 async function getDetails(imdbID) {
   const params = new URLSearchParams({
@@ -24,82 +25,98 @@ async function getDetails(imdbID) {
 
   return res.json();
 }
-/*---------------------------------------------------------------*/ 
 
 
+/*--------------------------------------------------------------*/
 
-
-
-
-async function searchMovies (query) {
-try { 
-  resultsGrid.innerHTML = "";
+function hideStates() {
+  loadingState.style.display = "none";
   emptyState.style.display = "none";
   errorState.style.display = "none";
+}
+
+async function searchMovies(query) {
+
+  query = query.trim();
+
+  // کادر خالی: کاری نکن
+  if (query === "") return;
+
+  // درخواست قبلی هنوز تمام نشده
+  if (searchBtn.disabled) return;
+
+  hideStates();
+  resultsGrid.innerHTML = "";
   loadingState.style.display = "block";
+  searchBtn.disabled = true;
 
-   const params = new URLSearchParams({
-   apikey: API_KEY,
-   s: query
-   });
+  try {
 
-const url = `${BASE_URL}?${params}`;
+    const params = new URLSearchParams({
+      apikey: API_KEY,
+      s: query
+    });
 
-const res = await fetch(url);
+    const res = await fetch(`${BASE_URL}?${params}`);
 
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status}`);
-  }
-
-  const data = await res.json();
-
-  console.log(data);
-
-    if (data.Response === "False") {
-      if (data.Error === "Movie not found!") {
-        emptyState.style.display = "block";
-      }
-      else {
-        throw new Error(data.Error);
-      }
-        return;
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
     }
 
-    /*------------------------------------------------------ */
+    const data = await res.json();
+
+    if (data.Response === "False") {
+
+      if (data.Error === "Movie not found!" || data.Error === "Too many results.") {
+        emptyState.style.display = "block";
+        return;
+      }
+
+      throw new Error(data.Error);
+    }
+
     const details = await Promise.all(
       data.Search.map(function (movie) {
-    return getDetails(movie.imdbID);
+        return getDetails(movie.imdbID);
       })
     );
 
     render(details);
-    /*------------------------------------------------------ */
 
-    }
-     catch (err) {
+  } catch (err) {
+
     console.log(err);
     errorState.style.display = "block";
-  }
 
-   finally {
-     loadingState.style.display = "none";
-  }
+  } finally {
 
-  
+    loadingState.style.display = "none";
+    searchBtn.disabled = false;
+  }
 }
 
 
-searchBtn.addEventListener ("click" , function() {
-searchMovies(searchInput.value);
+/*--------------------------------------------------------------*/
 
-})
+searchBtn.addEventListener("click", function () {
+  searchMovies(searchInput.value);
+});
 
-/*----------------------------------------------- */
+searchInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    searchMovies(searchInput.value);
+  }
+});
+
+
+/*--------------------------------------------------------------*/
+
 function render(movies) {
   movies.forEach(function (movie) {
+
     const poster = movie.Poster !== "N/A"
       ? movie.Poster
-      : "https://via.placeholder.com/300x450?text=No+Poster";
+      : "images/no-poster.png";
 
     const rating = movie.imdbRating !== "N/A" ? movie.imdbRating : "-";
 
@@ -118,4 +135,3 @@ function render(movies) {
     resultsGrid.appendChild(card);
   });
 }
-/*----------------------------------------------- */
