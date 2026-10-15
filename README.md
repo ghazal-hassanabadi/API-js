@@ -5,7 +5,7 @@
 یک سایت ساده برای جستجوی فیلم. اسم فیلم را می‌نویسی و پوستر، امتیاز و سال ساخت آن را می‌بینی. این پروژه با `HTML`، `CSS` و `JavaScript` خالص ساخته شده و از `OMDb API` اطلاعات فیلم‌ها را می‌گیرد.
 
 ## 🔗 دمو
-[https://ghazal-hassanabadi.github.io/API-js/]
+[ https://ghazal-hassanabadi.github.io/API-js/]
 
 
 
